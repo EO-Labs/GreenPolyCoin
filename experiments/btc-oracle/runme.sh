@@ -1,5 +1,9 @@
 #
 
+# intent: 
+#   timestamp txo.json
+# inputs :
+#   txo.yml
 
 find cached -mtime +1 -delete
 if [ ! -e txo.json ]; then
