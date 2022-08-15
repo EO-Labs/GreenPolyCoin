@@ -1,0 +1,24 @@
+---
+addr: bc1q2zsysq8uh2xkuedn9kg725q259ge08gzn5lhjp
+avtxn: 996.9794
+balance:
+  bc1q2zsysq8uh2xkuedn9kg725q259ge08gzn5lhjp:
+    final_balance: 1623574
+    n_tx: 1
+    total_received: 1623574
+breward: 6.25
+cptree: 21
+cptx: 15.3839688162062
+fees: 2016
+footprint: 100168
+gpkwh: 24.5
+kwhpbtc: 100168
+latestblock:
+  block_index: 1653001303
+  hash: 000000000000000000032237d5aeb7fc43c4551f145ac2e7bc33c4663040dbf4
+  height: 737100
+  nbtx: 2051
+  time: 1653001303
+tic: 1653065909
+totalbc: 19044375
+totco2: 46734896250

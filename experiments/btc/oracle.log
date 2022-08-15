@@ -1,0 +1,52 @@
+use-cache: cached/528c331b5c5df086cc035b5b34d720f00f5fc725.dat
+use-cache: cached/736e460df0376329d56266d8b349791a8c5359c6.dat
+use-cache: cached/4f18dd6b1369d6f53d7bf19235c3d8ff159e5f73.dat
+use-cache: cached/6bf3a24a47eb8c8f9511c34121b8cb7324c24c71.dat
+footprint-us: 47669.9512
+footprint-germany: 46978.792
+footprint-france: 4707.896
+footprint-switzerland: 1402.352
+footprint-hydro: 2454.116
+footprint-coal: 100168
+cpbtc: 2454
+cptree: 21
+height: 735371
+latesthash: 00000000000000000005c950b9ebd82f36f0ad41414a28fab85ebc4e144120da
+breward: 6.25
+totalbc: 19033531
+totalco2: 46.708285074 Mtons
+avtxn: 994.9325
+cptx: 15.4156186474962
+use-cache: cached/45b1c4b817827bb0b0f31d46a1857b8967ce9d0c.dat
+balance: ---
+bc1qugkdtcg8vr7j33leexstgk5gf3wgxcv5cajwps:
+  final_balance: 623286
+  n_tx: 16
+  total_received: 1171248
+...
+use-cache: cached/dbb4ffeb43bc062acca3d6d5d7887de4afcc9fc4.dat
+data: ---
+addr: bc1qugkdtcg8vr7j33leexstgk5gf3wgxcv5cajwps
+avtxn: 994.9325
+balance:
+  bc1qugkdtcg8vr7j33leexstgk5gf3wgxcv5cajwps:
+    final_balance: 623286
+    n_tx: 16
+    total_received: 1171248
+breward: 6.25
+cptree: 21
+cptx: 15.4156186474962
+fees: 294580
+footprint: 100168
+gpkwh: 24.5
+kwhpbtc: 100168
+latestblock:
+  block_index: 1651956186
+  hash: 00000000000000000005c950b9ebd82f36f0ad41414a28fab85ebc4e144120da
+  height: 735371
+  nbtx: 3054
+  time: 1651956186
+tic: 1651958491
+totalbc: 19033531
+totco2: 46708285074
+...

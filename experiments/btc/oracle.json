@@ -1,0 +1,28 @@
+{
+   "addr" : "bc1qugkdtcg8vr7j33leexstgk5gf3wgxcv5cajwps",
+   "avtxn" : "994.9325",
+   "balance" : {
+      "bc1qugkdtcg8vr7j33leexstgk5gf3wgxcv5cajwps" : {
+         "final_balance" : "623286",
+         "n_tx" : "16",
+         "total_received" : "1171248"
+      }
+   },
+   "breward" : "6.25",
+   "cptree" : "21",
+   "cptx" : "15.4156186474962",
+   "fees" : "294580",
+   "footprint" : "100168",
+   "gpkwh" : "24.5",
+   "kwhpbtc" : "100168",
+   "latestblock" : {
+      "block_index" : "1651956186",
+      "hash" : "00000000000000000005c950b9ebd82f36f0ad41414a28fab85ebc4e144120da",
+      "height" : "735371",
+      "nbtx" : "3054",
+      "time" : "1651956186"
+   },
+   "tic" : "1651958491",
+   "totalbc" : "19033531",
+   "totco2" : "46708285074"
+}
