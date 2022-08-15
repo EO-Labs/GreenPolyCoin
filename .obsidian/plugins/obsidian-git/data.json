@@ -1,6 +1,6 @@
 {
-  "commitMessage": "manual on {{date}}",
-  "autoCommitMessage": "vault on {{date}}",
+  "commitMessage": "manual: from {{hostname}} on {{date}}",
+  "autoCommitMessage": "{{hostname}} vault on {{date}}",
   "commitDateFormat": "YYYY-MM-DD HH:mm",
   "autoSaveInterval": 3,
   "autoPushInterval": 3,

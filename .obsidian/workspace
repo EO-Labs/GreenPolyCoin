@@ -7,11 +7,9 @@
         "id": "ea5106c9fb2de7e2",
         "type": "leaf",
         "state": {
-          "type": "markdown",
+          "type": "image",
           "state": {
-            "file": "README.md",
-            "mode": "source",
-            "source": false
+            "file": "nc-bitcoin.svg"
           }
         }
       }
@@ -77,7 +75,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "nc-bitcoin.svg",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +92,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "nc-bitcoin.svg",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +115,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "nc-bitcoin.svg"
               }
             }
           }
@@ -130,9 +128,15 @@
   },
   "active": "ea5106c9fb2de7e2",
   "lastOpenFiles": [
+    "images/gbitcoin.svg",
+    "CZero on Solana/notes.md",
+    "CZero on Solana/Solana.md",
+    "Tutorials n Docs/MetaPlex.md",
+    "nc-bitcoin.svg",
+    "Tutorials n Docs/README.md",
+    "Tutorials n Docs/Solana Tutorial.md",
     "README.md",
     "clients/GreenPolyCoin/Drawings/2022-07-13 14.52 PolyCarbonZero.md",
-    "Drawings/2022-07-13 14.52 PolyCarbonZero.md",
-    "Solana.md"
+    "Drawings/2022-07-13 14.52 PolyCarbonZero.md"
   ]
 }
