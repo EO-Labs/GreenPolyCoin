@@ -1,7 +1,18 @@
 ---
 title: README
 ---
-# README
+# README (CarbonZero)
+1. polyWallet
+2. ER20 (colored)
+    & ER721 : carbonZero certificate
+3. push & deploy on the chain
+4. back-end API
+5. interaction w/ BTC chain
+6. integration w/ web3
+
+![[Drawings/2022-07-13 14.52 PolyCarbonZero]]
+
+
 
 ## Architecture
 
@@ -12,6 +23,7 @@ title: README
 
 
 ## Reference
+1. testing metamask and a flask "hello world app"
 1. migration from [[Solana]] to Polygon
 
 

@@ -1,0 +1,130 @@
+{
+  "main": {
+    "id": "684a18edf5831498",
+    "type": "split",
+    "children": [
+      {
+        "id": "ea5106c9fb2de7e2",
+        "type": "leaf",
+        "state": {
+          "type": "empty",
+          "state": {}
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fc6d0c3015ee4925",
+    "type": "split",
+    "children": [
+      {
+        "id": "19476a7f70acf667",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4b10aace3ec157c8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "87a6d4feb553e52d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "0c9a66a208e8f691",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "48387f09a35e02f3",
+    "type": "split",
+    "children": [
+      {
+        "id": "fdf2d50a8beac3da",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f925195e354194f7",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "fc5121d3ef447e2c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "7d1ab864c4848b5b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "0474dbca24c455fa",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "ea5106c9fb2de7e2",
+  "lastOpenFiles": [
+    "README.md",
+    "clients/GreenPolyCoin/Drawings/2022-07-13 14.52 PolyCarbonZero.md",
+    "Drawings/2022-07-13 14.52 PolyCarbonZero.md",
+    "Solana.md"
+  ]
+}
