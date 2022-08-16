@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "experiments/web3-wallet/Web3 Auth.md",
-            "mode": "source",
+            "mode": "preview",
             "source": false
           }
         }
@@ -128,14 +128,14 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "4b10aace3ec157c8",
+  "active": "ea5106c9fb2de7e2",
   "lastOpenFiles": [
-    "Drawings/2022-08-16 09.49 web3-Auth.md",
+    "CZero on Solana/Solana.md",
     "experiments/web3-wallet/Web3 Auth.md",
+    "Drawings/2022-08-16 09.49 web3-Auth.md",
     "Drawings/2022-08-15 09.29.01 xkh askpass.md",
     "Drawings/2022-08-14 11.49.25 claimable keys.md",
     "Drawings/2022-08-13 11.00.49 keyMixer.md",
-    "CZero on Solana/Solana.md",
     "CZero on Solana/notes.md",
     "README.md",
     "images/nc-bitcoin.svg",
