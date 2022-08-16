@@ -41,14 +41,6 @@ sub debug(@) {
   if ($fmt !~ m/\n$/) { $fmt .= "\n"; }
   printf $DBUG '%u: %s.'.$fmt,$ticns,$callee,@_;
 }
-sub ldate { # return a human readable date ... but still sortable ...
-  my $tic = int($_[0]);
-  my ($sec,$min,$hour,$mday,$mon,$yy) = (localtime($tic))[0..5];
-  my ($yr4,$yr2) =($yy+1900,$yy%100);
-  my $date = sprintf '%04u-%02u-%02u %02u.%02u.%02u',
-             $yr4,$mon+1,$mday, $hour,$min,$sec;
-  return $date
-}
 
 
 sub get_creds($) {

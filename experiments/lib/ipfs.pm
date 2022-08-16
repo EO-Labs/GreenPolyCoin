@@ -71,7 +71,7 @@ sub ipfsToken { # public token (footprint)
   my $mh;
   my $urn;
   my $args = { @_ };
-  #debug "args: [%s]",join',',%{$args};
+  #dlog "args: [%s]",join',',%{$args};
   if (! exists $args->{urn}) {
      $urn = shift;
      $args = { @_ };
@@ -141,43 +141,43 @@ sub ipfsapi {
       $uploads = { (splice @$params, -2) };
    }
    use JSON::XS qw(encode_json);
-   debug "endpoint: %s\n",$ep;
+   dlog "endpoint: %s\n",$ep;
    if (exists $args->{arg}) {
-      debug "arg: %s\n",$args->{arg}
+      dlog "arg: %s\n",$args->{arg}
    } else {
-     debug "params: %s\n",encode_json($params);
+     dlog "params: %s\n",encode_json($params);
    }
    #use api qw(mapify);
    my  $buf = undef;
    if (keys %{$uploads}) {
-      debug "uploads.keys: %s\n",join',',keys %{$uploads};
+      log "uploads.keys: %s\n",join',',keys %{$uploads};
       if (exists $uploads->{Content}) {
          $buf = $uploads->{Content};
          if ($buf =~ /[\000-\031\177-\377]/o) { # binary ?
             my $b64 = encode_base64($buf,'');
-            debug "uploads.buf: %s..%s\n",substr($b64,0,10),substr($b64,-43);
+            dlog "uploads.buf: %s..%s\n",substr($b64,0,10),substr($b64,-43);
          } else {
-            debug "uploads.buf: %s..%s\n",substr($buf,0,10),substr($buf,-43);
+            dlog "uploads.buf: %s..%s\n",substr($buf,0,10),substr($buf,-43);
          }
       }
    }
    use api qw(querify);
    my $query_string = &querify($params);
    my $url = sprintf $api_url,$ep,$query_string;
-   debug "url: %s\n",$url;
+   dlog "url: %s\n",$url;
    my $content = '';
    use basic qw(get_creds);
    use LWP::UserAgent qw();
    use MIME::Base64 qw(decode_base64 encode_base64);
    my $ua = LWP::UserAgent->new();
    my $basic_auth = &get_creds();
-   debug "basic_auth: %s\n",$basic_auth;
+   dlog "basic_auth: %s\n",$basic_auth;
    if (0) {
       my ($user,$pass) = split':',&decode_base64($basic_auth);
       my $realm = 'restricted API Gateway';
       $ua->credentials("$apihost:$apiport", $realm, ${user}, $pass);
-      debug "X-User: %s\n",$user;
-      debug "X-Creds: %s\n",encode_base64(sprintf'%s:%s',$ua->credentials("$apihost:$apiport",$realm),'');
+      dlog "X-User: %s\n",$user;
+      dlog "X-Creds: %s\n",encode_base64(sprintf'%s:%s',$ua->credentials("$apihost:$apiport",$realm),'');
    }
    my @headers = ('Authorization' => "Basic $basic_auth", 'Origin' => 'http://localhost:8088');
    my $resp;
@@ -187,7 +187,7 @@ sub ipfsapi {
       # - [RFC 1867](https://datatracker.ietf.org/doc/html/rfc1867)
       # - [HTTP Request](https://metacpan.org/pod/HTTP::Request::Common)
       my $filename = $args->{filename} || 'blob.data';
-      debug "X-filename: %s\n",$filename;
+      dlog "X-filename: %s\n",$filename;
       my $form_ref = { file => [ undef, $filename, 'Content-Type' => 'application/stream', Content => $buf ] }; 
       $resp = $ua->post($url,@headers, Content => $form_ref);
    } else {
@@ -195,17 +195,17 @@ sub ipfsapi {
       $resp = $ua->post($url,@headers);
    }
    if ($resp->is_success) {
-      debug("%s.status: %s\n",$ep, $resp->status_line);
+      dlog("%s.status: %s\n",$ep, $resp->status_line);
       $content = $resp->decoded_content;
    } else {
-      debug "X-api-url: %s\n",$url;
-      debug "Status: %s\n",$resp->status_line;
+      dlog "X-api-url: %s\n",$url;
+      dlog "Status: %s\n",$resp->status_line;
       $content = $resp->decoded_content;
       local $/ = "\n";
       chomp($content);
    }
    if ($ep =~ m{^(?:cat)}) {
-      debug "content: %s...\n",substr($content,0,24);
+      dlog "content: %s...\n",substr($content,0,24);
       return $content;
    }
    use JSON::XS qw(decode_json encode_json);
@@ -226,16 +226,16 @@ sub ipfsapi {
         $json->{status} = $resp->code;
         $json->{Message} = $resp->status_line;
       }
-      debug "json: %s\n",&encode_json($json);
+      dlog "json: %s\n",&encode_json($json);
       return $json;
    } elsif ($content =~ m/^--- /) { # /!\ need the trailing space
       use YAML::XS qw(Load);
       my $yaml = Load($content);
       $yaml->{status} = $resp->code; # pass error along...
-      debug "yaml: %s\n",&encode_json($yaml);
+      dlog "yaml: %s\n",&encode_json($yaml);
       return $yaml;
    } else {
-      debug "info: $ep no content returned\n" if (! $content);
+      dlog "info: $ep no content returned\n" if (! $content);
       return $content;
    }
 }
@@ -245,7 +245,7 @@ sub get_apihostport {
   # obviously it requires a local IPFS node runing 
   if (! exists $ENV{IPFS_API_GATEWAY}) {
      my $IPFS_PATH = $ENV{IPFS_PATH} || $ENV{HOME}.'/.ipfs';
-     #debug "IPFS_PATH: %s\n",$IPFS_PATH;
+     #dlog "IPFS_PATH: %s\n",$IPFS_PATH;
      if (-e $IPFS_PATH.'/api') {
         local *API; open API,'<',$IPFS_PATH.'/api';
         my $apiaddr = <API>; chomp($apiaddr);
