@@ -1,0 +1,3 @@
+[submodule "experiments/submodules"]
+	path = experiments/submodules
+	url = git@github.com:EO-Labs/submodules.git
