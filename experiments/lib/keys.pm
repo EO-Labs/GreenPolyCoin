@@ -39,6 +39,7 @@ use Bitcoin::Mnemonic qw(entropy_to_bip39_mnemonic bip39_mnemonic_to_entropy gen
 our $appid = $ENV{APP_SECRETID} || '59d95bef-71f3-44e9-ae61-78dab20711d8';
 
 # -----------------------------------------------
+# ex: xdg-open http://0.0.0.0:5000/?seed=abcd1234edfg5678 (12 words min)
 sub getMnemonic {
   my $data = shift;
   my $data_raw = ($data =~ m/^m/ && length($data) % 16) ? &decode_mbase64($data) :
@@ -103,7 +104,6 @@ sub ECC {
       $private_raw = $pk->export_key_raw('private_compressed');
    }
    my $seckey58 = &encode_mbase58($private_raw);
-
    my $public_raw = $pk->export_key_raw('public_compressed');
    my $pubkey58 = &encode_mbase58($public_raw);
    my $pair = {
