@@ -108,6 +108,64 @@ sub redact() {
  return sprintf '[CIPHER]%s[CLEAR]',$cipher64
 }
 
+sub KHMAC($$@) { # Ex. my $kmac = &KHMAC($algo,$secret,$nonce,$message);
+  #y $intent = qq'to compute a keyed hash message authentication code';
+  use Crypt::Mac::HMAC qw();
+  my $algo = shift;
+  my $secret = shift;
+  #printf "KHMAC.secret: f%s\n",unpack'H*',$secret;
+  my $digest = Crypt::Mac::HMAC->new($algo,$secret);
+     $digest->add(join'',@_);
+  return $digest->mac;
+}
+
+sub DHSecret { # Ex my $secret = DHSecret($sku,$pku);
+  #y $intent = "reveals the share secret between 2 parties !";
+  my ($privkey,$pubkey) = @_;
+  my ($pubkey58,$privkey58);
+  if (exists $keys->{$keyid} && defined $keys->{$keyid}{private}) {
+    $privkey58 = $keys->{$keyid}{private};
+  } elsif (exists $nicknames->{$keyid}) {
+    $keyid = $nicknames->{$keyid};
+    $privkey58 = $keys->{$keyid}{private};
+  } else {
+    $privkey58 = $keyid;
+  }
+  if (exists $nicknames->{$pubkey}) {
+    $keyid = $nicknames->{$pubkey};
+    $pubkey58 = $keys->{$keyid}{public};
+  } elsif (exists $keys->{$pubkey} && defined $keys->{$pubkey}{public}) {
+    $keyid = $pubkey;
+    $pubkey58 = $keys->{$keyid}{public};
+  } else {
+    $pubkey58 = $keyid;
+  }
+  use encode qw(decode_mbase58 encode_mbase58);
+  my $public_raw = &decode_mbase58($pubkey58);
+  my $private_raw = &decode_mbase58($privkey58);
+
+  my $curve = 'secp256k1';
+  use Crypt::PK::ECC qw();
+  my $sk  = Crypt::PK::ECC->new();
+  my $priv = $sk->import_key_raw($private_raw, $curve);
+  my $pk = Crypt::PK::ECC->new();
+  my $pub = $pk->import_key_raw($public_raw ,$curve);
+  my $shared_secret = $priv->shared_secret($pub);
+  my $secret58 = &encode_mbase58($shared_secret);
+
+  my $public = $priv->export_key_raw('public_compressed');
+  my $public58 = &encode_mbase58($public);
+
+  my $obj = {
+    secret_raw => $shared_secret,
+    origin => $public58,
+    public => $pubkey58,
+    secret => $secret58
+  };
+  return wantarray ? %{$obj} : $obj->{secret};
+}
+
+
 
 
 sub version {
