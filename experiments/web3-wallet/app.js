@@ -9,6 +9,13 @@ const accounts = await ethereum.request({ method: 'eth_accounts' });
 
 console.dir(accounts)
 
+  const api_url = 'http://127.0.0.1:5000/api/v0';
+  const endpoints = {
+    nonce: '/get/nonce',
+    login: '/login',
+    auth: '/auth'
+  };
+
  async function web3Login() {
         if (!window.ethereum) {
             alert('MetaMask not detected. Please install MetaMask first.');
@@ -19,8 +26,10 @@ console.dir(accounts)
 
   document.getElementById('login').addEventListener('click',web3Login,false);
 
-
-  async function 
+  async function web3Login(ev) {
+    let resp = await fetch(endpoints.nonce)
+    console.log('resp:', resp);
+  }
 
 
 })();
