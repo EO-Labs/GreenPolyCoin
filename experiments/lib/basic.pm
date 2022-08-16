@@ -49,6 +49,37 @@ sub ldate { # return a human readable date ... but still sortable ...
              $yr4,$mon+1,$mday, $hour,$min,$sec;
   return $date
 }
+sub encode_mbase58 {
+  my $mh = sprintf'Z%s',&encode_base58f(@_);
+  return $mh;
+}
+sub decode_mbase58 {
+  return &decode_base58(substr($_[0],1));
+}
+sub encode_base58f { # flickr
+  use Math::BigInt;
+  use Encode::Base58::BigInt qw();
+  my $bin = join'',@_;
+  my $bint = Math::BigInt->from_bytes($bin);
+  my $h58 = Encode::Base58::BigInt::encode_base58($bint);
+  # $h58 =~ tr/a-km-zA-HJ-NP-Z/A-HJ-NP-Za-km-z/; # btc
+  return $h58;
+}
+sub decode_base58f {
+  use Carp qw(cluck);
+  use Math::BigInt;
+  use Encode::Base58::BigInt qw();
+  my $s = $_[0];
+  #$s =~ tr/A-HJ-NP-Za-km-zIO0l/a-km-zA-HJ-NP-ZiooL/; # btc
+  $s =~ tr/IO0l/iooL/; # forbidden chars
+  #printf "s: %s\n",unpack'H*',$s;
+  my $bint = Encode::Base58::BigInt::decode_base58($s) or warn "$s: $!";
+  cluck "error decoding $s!" unless $bint;
+  my $bin = Math::BigInt->new($bint)->as_bytes();
+  return $bin;
+}
+
+
 
 
 sub get_creds($) {
@@ -121,26 +152,7 @@ sub KHMAC($$@) { # Ex. my $kmac = &KHMAC($algo,$secret,$nonce,$message);
 
 sub DHSecret { # Ex my $secret = DHSecret($sku,$pku);
   #y $intent = "reveals the share secret between 2 parties !";
-  my ($privkey,$pubkey) = @_;
-  my ($pubkey58,$privkey58);
-  if (exists $keys->{$keyid} && defined $keys->{$keyid}{private}) {
-    $privkey58 = $keys->{$keyid}{private};
-  } elsif (exists $nicknames->{$keyid}) {
-    $keyid = $nicknames->{$keyid};
-    $privkey58 = $keys->{$keyid}{private};
-  } else {
-    $privkey58 = $keyid;
-  }
-  if (exists $nicknames->{$pubkey}) {
-    $keyid = $nicknames->{$pubkey};
-    $pubkey58 = $keys->{$keyid}{public};
-  } elsif (exists $keys->{$pubkey} && defined $keys->{$pubkey}{public}) {
-    $keyid = $pubkey;
-    $pubkey58 = $keys->{$keyid}{public};
-  } else {
-    $pubkey58 = $keyid;
-  }
-  use encode qw(decode_mbase58 encode_mbase58);
+  my ($pubkey58,$privkey58) = @_;
   my $public_raw = &decode_mbase58($pubkey58);
   my $private_raw = &decode_mbase58($privkey58);
 
