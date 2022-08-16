@@ -83,7 +83,7 @@ sub ipfsToken { # public token (footprint)
   my $ttl = $args->{TTL} || $ENV{TOKEN_TTL} || 24 * 3593; # default ~1day
   my $timeint = int (time / $ttl + 0.499) ; # /!\ can be future time !
   my $slug = $urn; $slug =~ s/\W+/-/g;
-  use basic qw(KHMAC);
+  use keys qw(KHMAC);
   my $key = pack'N',$timeint;
   my $token = &KHMAC('SHA256',$key,$urn);
   if ($args->{set}) {

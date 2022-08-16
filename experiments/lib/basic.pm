@@ -49,6 +49,7 @@ sub ldate { # return a human readable date ... but still sortable ...
              $yr4,$mon+1,$mday, $hour,$min,$sec;
   return $date
 }
+# ------------------------------------------------
 sub encode_mbase58 {
   my $mh = sprintf'Z%s',&encode_base58f(@_);
   return $mh;
@@ -56,6 +57,7 @@ sub encode_mbase58 {
 sub decode_mbase58 {
   return &decode_base58(substr($_[0],1));
 }
+# ------------------------------------------------
 sub encode_base58f { # flickr
   use Math::BigInt;
   use Encode::Base58::BigInt qw();
@@ -78,7 +80,7 @@ sub decode_base58f {
   my $bin = Math::BigInt->new($bint)->as_bytes();
   return $bin;
 }
-
+# ------------------------------------------------
 
 
 
@@ -138,47 +140,6 @@ sub redact() {
  printf qq'cipher64.%s: %s\n',$n++,$cipher64; # /!\ not deterministic !
  return sprintf '[CIPHER]%s[CLEAR]',$cipher64
 }
-
-sub KHMAC($$@) { # Ex. my $kmac = &KHMAC($algo,$secret,$nonce,$message);
-  #y $intent = qq'to compute a keyed hash message authentication code';
-  use Crypt::Mac::HMAC qw();
-  my $algo = shift;
-  my $secret = shift;
-  #printf "KHMAC.secret: f%s\n",unpack'H*',$secret;
-  my $digest = Crypt::Mac::HMAC->new($algo,$secret);
-     $digest->add(join'',@_);
-  return $digest->mac;
-}
-
-sub DHSecret { # Ex my $secret = DHSecret($sku,$pku);
-  #y $intent = "reveals the share secret between 2 parties !";
-  my ($pubkey58,$privkey58) = @_;
-  my $public_raw = &decode_mbase58($pubkey58);
-  my $private_raw = &decode_mbase58($privkey58);
-
-  my $curve = 'secp256k1';
-  use Crypt::PK::ECC qw();
-  my $sk  = Crypt::PK::ECC->new();
-  my $priv = $sk->import_key_raw($private_raw, $curve);
-  my $pk = Crypt::PK::ECC->new();
-  my $pub = $pk->import_key_raw($public_raw ,$curve);
-  my $shared_secret = $priv->shared_secret($pub);
-  my $secret58 = &encode_mbase58($shared_secret);
-
-  my $public = $priv->export_key_raw('public_compressed');
-  my $public58 = &encode_mbase58($public);
-
-  my $obj = {
-    secret_raw => $shared_secret,
-    origin => $public58,
-    public => $pubkey58,
-    secret => $secret58
-  };
-  return wantarray ? %{$obj} : $obj->{secret};
-}
-
-
-
 
 sub version {
   #y $intent = "get time based version string and a content based build tag";
