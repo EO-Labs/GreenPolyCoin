@@ -7,9 +7,11 @@
         "id": "ea5106c9fb2de7e2",
         "type": "leaf",
         "state": {
-          "type": "excalidraw",
+          "type": "markdown",
           "state": {
-            "file": "Drawings/2022-08-15 09.29.01 xkh askpass.md"
+            "file": "experiments/web3-wallet/Web3 Auth.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -75,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Drawings/2022-08-15 09.29.01 xkh askpass.md",
+                "file": "experiments/web3-wallet/Web3 Auth.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -92,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Drawings/2022-08-15 09.29.01 xkh askpass.md",
+                "file": "experiments/web3-wallet/Web3 Auth.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -115,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Drawings/2022-08-15 09.29.01 xkh askpass.md"
+                "file": "experiments/web3-wallet/Web3 Auth.md"
               }
             }
           }
@@ -126,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "ea5106c9fb2de7e2",
+  "active": "4b10aace3ec157c8",
   "lastOpenFiles": [
+    "Drawings/2022-08-16 09.49 web3-Auth.md",
+    "experiments/web3-wallet/Web3 Auth.md",
+    "Drawings/2022-08-15 09.29.01 xkh askpass.md",
     "Drawings/2022-08-14 11.49.25 claimable keys.md",
     "Drawings/2022-08-13 11.00.49 keyMixer.md",
     "CZero on Solana/Solana.md",
     "CZero on Solana/notes.md",
     "README.md",
     "images/nc-bitcoin.svg",
-    "experiments/btc-oracle/notes.md",
-    "images/gbitcoin.svg",
-    "Tutorials n Docs/MetaPlex.md",
-    "Tutorials n Docs/README.md"
+    "experiments/btc-oracle/notes.md"
   ]
 }
