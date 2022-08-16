@@ -66,6 +66,39 @@ sub ipfsConnect(@) { # Ex. my $mh = &ipfsConnect($peer);
    return { status => $status, msg => $resp->{Strings}, addr => $addr} ;
 }
 # ---------------------------------------
+# ---------------------------------------
+sub ipfsToken { # public token (footprint)
+  my $mh;
+  my $urn;
+  my $args = { @_ };
+  #debug "args: [%s]",join',',%{$args};
+  if (! exists $args->{urn}) {
+     $urn = shift;
+     $args = { @_ };
+  } else {
+     $urn = $args->{urn};
+  }
+  #y intent qq"compute: time expiring token %s",$urn;
+  my $ttl = $args->{TTL} || $TTL; # default ~1day
+  my $timeint = int (time / $ttl + 0.499) ; # /!\ can be future time !
+  my $slug = $urn; $slug =~ s/\W+/-/g;
+  use broker qw(KHMAC);
+  my $key = pack'N',$timeint;
+  my $token = &KHMAC('SHA256',$key,$urn);
+  if ($args->{set}) {
+     use LOG qw(ldate);
+     debug "set: token %s @%s\n",$urn,ldate($timeint * $ttl);
+    $mh = &ipfsapi('add', 'raw-leaves' => 'true', 'cid-base' => 'base58flickr', filename => "$slug.dat", Content => $token);
+  } else {
+     debug "get: token %s @%s\n",$urn,ldate($timeint * $ttl);
+    $mh = &ipfsapi('add', 'raw-leaves' => 'true', 'cid-base' => 'base58flickr', 'only-hash' => 'true', Content => $token);
+  }
+  if (ref($mh) eq 'HASH') {
+    debug "hash: %s\n",$mh->{Hash};
+  }
+  return $mh
+}
+# ---------------------------------------
 sub ipfsFetch($) { # Ex. my $blob = &ipfsFetch($ipath);
    #y $intent "get content from an ipfs path";
    my $ipath = shift;
@@ -234,6 +267,22 @@ sub get_apihostport {
      my ($apihost,$apiport) = ($1,$2) if ($ENV{IPFS_API_GATEWAY} =~ m,https?://([^:]+):(\d+),);
      return ($apihost,$apiport);
   }
+}
+
+sub debug(@) {
+  our $DLOG;
+  if (!tell($DLOG)) {
+     my $DLOGF = sprintf"%s/logs/dlogs-D%d.yml",$ENV{SITE},$yday+1; $DLOGF =~ s,_site/,,;
+     open $DLOG,'>>',$DLOGF or warn $!;
+     my $h = select $DLOG; $|=1; select($h); # autoflush for $DLOG
+  }
+  my $callee = (caller(1))[3];
+  $callee =~ s/.*:://o;
+  my $tics = time();
+  my $ticns = $tics * 1000_000;
+  my $fmt = shift;
+  if ($fmt !~ m/\n$/) { $fmt .= "\n"; }
+  printf $DLOG '%u:%s.'.$fmt,$ticns,$callee,@_;
 }
 
 # -----------------------------------------------------------------------
