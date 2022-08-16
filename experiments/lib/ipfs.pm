@@ -86,15 +86,15 @@ sub ipfsToken { # public token (footprint)
   my $key = pack'N',$timeint;
   my $token = &KHMAC('SHA256',$key,$urn);
   if ($args->{set}) {
-     use LOG qw(ldate);
-     debug "set: token %s @%s\n",$urn,ldate($timeint * $ttl);
+     use basic qw(ldate);
+     dlog "set: token %s @%s\n",$urn,ldate($timeint * $ttl);
     $mh = &ipfsapi('add', 'raw-leaves' => 'true', 'cid-base' => 'base58flickr', filename => "$slug.dat", Content => $token);
   } else {
-     debug "get: token %s @%s\n",$urn,ldate($timeint * $ttl);
+     dlog "get: token %s @%s\n",$urn,ldate($timeint * $ttl);
     $mh = &ipfsapi('add', 'raw-leaves' => 'true', 'cid-base' => 'base58flickr', 'only-hash' => 'true', Content => $token);
   }
   if (ref($mh) eq 'HASH') {
-    debug "hash: %s\n",$mh->{Hash};
+    dlog "hash: %s\n",$mh->{Hash};
   }
   return $mh
 }
@@ -269,17 +269,19 @@ sub get_apihostport {
   }
 }
 
-sub debug(@) {
+sub dlog(@) {
   our $DLOG;
+  use Time::HiRes qw(time);
+  my $tics = time();
+  my $ticns = $tics * 1000_000;
   if (!tell($DLOG)) {
-     my $DLOGF = sprintf"%s/logs/dlogs-D%d.yml",$ENV{SITE},$yday+1; $DLOGF =~ s,_site/,,;
-     open $DLOG,'>>',$DLOGF or warn $!;
+     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = (gmtime(int$tics));
+     my $DLOGF = sprintf"%s/_data/dlogs-D%d.yml",$ENV{SITE},$yday+1; $DLOGF =~ s,_site/,,;
+     open $DLOG,'>>',$DLOGF or warn $!; binmode($DLOG, ":utf8");
      my $h = select $DLOG; $|=1; select($h); # autoflush for $DLOG
   }
   my $callee = (caller(1))[3];
   $callee =~ s/.*:://o;
-  my $tics = time();
-  my $ticns = $tics * 1000_000;
   my $fmt = shift;
   if ($fmt !~ m/\n$/) { $fmt .= "\n"; }
   printf $DLOG '%u:%s.'.$fmt,$ticns,$callee,@_;
