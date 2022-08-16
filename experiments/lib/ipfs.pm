@@ -14,6 +14,7 @@ require Exporter;
 
 use strict;
 use basic qw(debug version);
+sub dlog(@);
 
 # The "use vars" and "$VERSION" statements seem to be required.
 use vars qw/$dbug $VERSION/;
@@ -147,7 +148,6 @@ sub ipfsapi {
    } else {
      dlog "params: %s\n",encode_json($params);
    }
-   #use api qw(mapify);
    my  $buf = undef;
    if (keys %{$uploads}) {
       log "uploads.keys: %s\n",join',',keys %{$uploads};
@@ -161,7 +161,6 @@ sub ipfsapi {
          }
       }
    }
-   use api qw(querify);
    my $query_string = &querify($params);
    my $url = sprintf $api_url,$ep,$query_string;
    dlog "url: %s\n",$url;
@@ -268,6 +267,52 @@ sub get_apihostport {
      return ($apihost,$apiport);
   }
 }
+
+sub querify { # Ex. my $query = querify($params);
+  #y $intent = q"querify a key-value map";
+  my @queries = ();
+  my @params;
+  if (ref($_[0]) eq 'HASH') {
+    @params = ( %{$_[0]} );
+   } else {
+    @params = ( @{$_[0]} );
+   }
+  while (@params) {
+    my $k = shift @params;
+    my $v = shift @params;
+    #$v =~ s/([\000-\032\`%?&\<\( \)\>\177-\377])/sprintf('%%%02X',ord($1))/eg; # html-ize (url-encode)
+    push @queries, "$k=$v";
+  }
+  if (@queries) {
+    return join'&',@queries;
+  } else {
+    return undef;
+  }
+}
+sub mapify { # Ex. my $map = mapify($params);
+  my @params;
+  if (ref($_[0]) eq 'ARRAY') {
+    @params = ( @{$_[0]} );
+   } else {
+    return $_[0];
+   }
+   my $map = {};
+  while (@params) {
+    my $k = shift @params;
+    my $v = shift @params; 
+    if (exists $map->{$k}) { 
+      if (ref($map->{$k}) ne 'ARRAY') {
+        $map->{$k} = [ $map->{$k}, $v ];
+      } else {
+        push @{$map->{$k}}, $v;
+      }
+    } else {
+      $map->{$k} = $v;
+    }
+  }
+  return $map;
+}
+
 
 sub dlog(@) {
   our $DLOG;
