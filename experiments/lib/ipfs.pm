@@ -79,7 +79,7 @@ sub ipfsToken { # public token (footprint)
      $urn = $args->{urn};
   }
   #y intent qq"compute: time expiring token %s",$urn;
-  my $ttl = $args->{TTL} || $TTL; # default ~1day
+  my $ttl = $args->{TTL} || $ENV{TOKEN_TTL} || 24 * 3593; # default ~1day
   my $timeint = int (time / $ttl + 0.499) ; # /!\ can be future time !
   my $slug = $urn; $slug =~ s/\W+/-/g;
   use broker qw(KHMAC);
