@@ -15,4 +15,6 @@ FE->>BE: Log me in using the signature token.
 BE-->>FE: You are logged in using the signature token.
 ```
 
+> Note:  no metamask available on mobile, need develop own wallet
+
 ![[2022-08-16 09.49 web3-Auth]]
