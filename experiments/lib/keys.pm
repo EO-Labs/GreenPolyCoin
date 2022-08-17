@@ -53,6 +53,16 @@ sub getMnemonic {
   debug "mnemonic: %s\n",$mnemonic;
   return $mnemonic;
 }
+sub getEntropy {
+  my $obj = shift;
+  my $mnemo;
+  if (ref($obj) eq 'ARRAY') {
+     $mnemo = join' ',@{$obj};
+  } elsif (ref($obj) eq 'HASH') {
+     $mnemo = join' ',@{$obj->{mnemonic};
+  }
+
+}
 # -----------------------------------------------
 sub getPublicKey($) {
    #y $intent qq'compute keypair from a uuid';
