@@ -58,9 +58,16 @@ sub getEntropy {
   my $mnemo;
   if (ref($obj) eq 'ARRAY') {
      $mnemo = join' ',@{$obj};
-  } elsif (ref($obj) eq 'HASH') {
-     $mnemo = join' ',@{$obj->{mnemonic};
+  } elsif (ref($obj) eq 'HASH' && exists $obj->{mnemonic}) {
+     if (ref($obj->{mnemonic}) eq 'ARRAY') {
+        $mnemo = join' ',@{$obj->{mnemonic}};
+     } else {
+        $mnemo = @{$obj->{mnemonic}};
+     }
+  } else {
+     $mnemo = $obj;
   }
+  my $entropy = 
 
 }
 # -----------------------------------------------
@@ -204,6 +211,15 @@ sub decode_base58f {
   return $bin;
 }
 # ------------------------------------------------
+sub random {
+  my $len = shift;
+  use Crypt::Random qw( makerandom_octet );
+  my $r = makerandom_octet ( Length => $len , Strength => 1, Uniform => 1 );
+  #printf "random: %s\n",unpack'H*',$r;
+  return $r;
+}
+# ------------------------------------------------
+1;
 
 
 
