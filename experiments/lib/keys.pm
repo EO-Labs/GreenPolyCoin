@@ -55,20 +55,21 @@ sub getMnemonic {
 }
 sub getEntropy {
   my $obj = shift;
-  my $mnemo;
+  my $mnemonic;
   if (ref($obj) eq 'ARRAY') {
-     $mnemo = join' ',@{$obj};
+     $mnemonic = join' ',@{$obj};
   } elsif (ref($obj) eq 'HASH' && exists $obj->{mnemonic}) {
      if (ref($obj->{mnemonic}) eq 'ARRAY') {
-        $mnemo = join' ',@{$obj->{mnemonic}};
+        $mnemonic = join' ',@{$obj->{mnemonic}};
      } else {
-        $mnemo = @{$obj->{mnemonic}};
+        $mnemonic = @{$obj->{mnemonic}};
      }
   } else {
-     $mnemo = $obj;
+     $mnemonic = $obj;
   }
-  my $entropy = 
-
+  my $entropy_raw = &bip39_mnemonic_to_entropy(mnemonic => $mnemonic);
+  my $entropy = &encode_mbase64($entropy_raw);
+  return $entropy;
 }
 # -----------------------------------------------
 sub getPublicKey($) {
