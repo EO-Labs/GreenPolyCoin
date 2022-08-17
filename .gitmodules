@@ -1,6 +1,6 @@
 [submodule "experiments/submodules"]
 	path = experiments/submodules
 	url = git@github.com:EO-Labs/submodules.git
-[submodule "carbonzero"]
-	path = carbonzero
+[submodule "carbonzero on Polygon"]
+	path = carbonzero on Polygon
 	url = git@github.com:polal2is/carbonzero.git

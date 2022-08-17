@@ -1,4 +1,4 @@
 ## Carbon Zero BitCoin on Solana
 
 ### Initial Architecture
-![[nc-bitcoin.svg]][[CZero on Solana/notes]]
+![[nc-bitcoin.svg]][[carbonzero on Solana/notes]]
