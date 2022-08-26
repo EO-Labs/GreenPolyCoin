@@ -4,3 +4,6 @@
 [submodule "carbonzero on Polygon"]
 	path = carbonzero on Polygon
 	url = git@github.com:polal2is/carbonzero.git
+[submodule "experiments/PlackExp"]
+	path = experiments/PlackExp
+	url = git@github.com:michel47/PlackExp.git
